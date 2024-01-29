@@ -15,6 +15,11 @@ public class MainActivity extends AppCompatActivity {
         this.binding.setMain(this);
         setContentView(this.binding.getRoot());
         //setContentView(R.layout.activity_main);
-        this.binding.title.setText("Hola data binding");
+        this.binding.title.setText(getString(R.string.api_key));
+
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.home_container, HomeFragment.class, null)
+                .commit();
     }
 }
