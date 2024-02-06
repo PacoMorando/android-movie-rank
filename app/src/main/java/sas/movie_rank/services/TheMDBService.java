@@ -22,8 +22,9 @@ public class TheMDBService {
     }
 
     public interface ServiceInterface {
-        @GET(TRENDING + "{apiKey}")
-        Call<Trending> getTrending(@Path("apiKey") String apiKey);
+        //@GET(TRENDING + "{apiKey}")
+        @GET(TRENDING)
+        Call<Trending> getTrending(@Query("api_key") String apiKey);
 
         //Call<Trending> getTrending(@Query("q") String productToSearch, @Query("limit") int resultsSize);
         @GET("movie/{movieId}?{apiKey}")
