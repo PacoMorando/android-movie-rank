@@ -19,6 +19,7 @@ import sas.movie_rank.services.Trending;
 
 public class TrendingRecyclerAdapter extends RecyclerView.Adapter<TrendingRecyclerAdapter.ItemHolder> {
     private ArrayList<Trending.Result> trendingResults;
+    private OnItemClickListener itemClickListener;
 
     public TrendingRecyclerAdapter() {
         this.trendingResults = new ArrayList<>();
@@ -37,6 +38,9 @@ public class TrendingRecyclerAdapter extends RecyclerView.Adapter<TrendingRecycl
         holder.releasedDate.setText(trendingResults.get(position).getReleaseDate());
         holder.overview.setText(trendingResults.get(position).getOverview());
         holder.setPoster(trendingResults.get(position).getPosterPath());
+        holder.itemView.setOnClickListener(view -> {
+            this.itemClickListener.onItemClicked(trendingResults.get(position).getId());
+        });
     }
 
     @Override
@@ -48,11 +52,15 @@ public class TrendingRecyclerAdapter extends RecyclerView.Adapter<TrendingRecycl
         this.trendingResults = (ArrayList<Trending.Result>) trendingResults;
     }
 
-    public class ItemHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView releasedDate;
-        TextView overview;
-        ImageView poster;
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public static class ItemHolder extends RecyclerView.ViewHolder {
+        private final TextView title;
+        private final TextView releasedDate;
+        private final TextView overview;
+        private final ImageView poster;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,7 +68,6 @@ public class TrendingRecyclerAdapter extends RecyclerView.Adapter<TrendingRecycl
             this.releasedDate = itemView.findViewById(R.id.released_date);
             this.overview = itemView.findViewById(R.id.overview);
             this.poster = itemView.findViewById(R.id.poster);
-            //this.setPoster();
         }
 
         private void setPoster(String posterPath) {
@@ -77,5 +84,9 @@ public class TrendingRecyclerAdapter extends RecyclerView.Adapter<TrendingRecycl
                 }
             });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(String itemId);
     }
 }

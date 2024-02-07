@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,11 +20,14 @@ import sas.movie_rank.services.TheMDBService;
 import sas.movie_rank.services.Trending;
 
 public class HomeFragment extends Fragment {
-    FragmentHomeBinding binding;
-    TrendingRecyclerAdapter trendingRecyclerAdapter;
+    private FragmentHomeBinding binding;
+    private final TrendingRecyclerAdapter trendingRecyclerAdapter;
 
     public HomeFragment() {
         this.trendingRecyclerAdapter = new TrendingRecyclerAdapter();
+        this.trendingRecyclerAdapter.setItemClickListener(itemId -> {
+            Toast.makeText(getContext(), "Picaste el id" + itemId, Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
@@ -48,7 +52,7 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful()) {
                     Trending trending = response.body();
                     List<Trending.Result> trendingResults = trending != null ? trending.getResults() : null;
-                    if (trendingResults != null){
+                    if (trendingResults != null) {
                         trendingRecyclerAdapter.setTrendingResults(trendingResults);
                         trendingRecyclerAdapter.notifyDataSetChanged();
                     }
