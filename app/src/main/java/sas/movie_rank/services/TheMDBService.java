@@ -22,13 +22,12 @@ public class TheMDBService {
     }
 
     public interface ServiceInterface {
-        //@GET(TRENDING + "{apiKey}")
         @GET(TRENDING)
         Call<Trending> getTrending(@Query("api_key") String apiKey);
 
         //Call<Trending> getTrending(@Query("q") String productToSearch, @Query("limit") int resultsSize);
-        @GET("movie/{movieId}?{apiKey}")
-        Call<MovieDetail> getMovieDetail(@Path("movieId") String movieId, @Path("apiKey") String apiKey);
+        @GET("movie/{movieId}?")
+        Call<MovieDetail> getMovieDetail(@Path("movieId") String movieId, @Query("api_key") String apiKey);
     }
 
     public static class TheMDBApi {

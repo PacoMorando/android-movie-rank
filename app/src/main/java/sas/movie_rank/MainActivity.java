@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
         this.binding.title.setText(getString(R.string.api_key));
 
-        getSupportFragmentManager().beginTransaction()
+        this.getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.home_container, HomeFragment.class, null)
                 .commit();

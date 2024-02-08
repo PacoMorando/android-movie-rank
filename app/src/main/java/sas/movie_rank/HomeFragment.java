@@ -26,8 +26,19 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         this.trendingRecyclerAdapter = new TrendingRecyclerAdapter();
         this.trendingRecyclerAdapter.setItemClickListener(itemId -> {
+            this.showMovieDetail(itemId);
             Toast.makeText(getContext(), "Picaste el id" + itemId, Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void showMovieDetail(String itemId) {
+        Bundle result = new Bundle();
+        result.putString("movieId", itemId);
+        this.getParentFragmentManager().setFragmentResult("requestKey", result);
+        this.getParentFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.home_container, MovieDetailFragment.class, null)
+                .commit();
     }
 
     @Override
@@ -45,7 +56,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getTrending() {
-        Call<Trending> call = TheMDBService.TheMDBApi.getInstance().getTrending(getContext().getString(R.string.api_key));
+        Call<Trending> call = TheMDBService.TheMDBApi.getInstance().getTrending(getString(R.string.api_key));
         call.enqueue(new Callback<Trending>() {
             @Override
             public void onResponse(Call<Trending> call, Response<Trending> response) {
@@ -61,7 +72,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Trending> call, Throwable t) {
-                System.out.println("Falló la conexion");
+                System.out.println("!!!!FALLO LA CONEXION CON LA API!!!");
             }
         });
     }
