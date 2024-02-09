@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,13 +42,14 @@ public class MovieDetailFragment extends Fragment {
         this.getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                binding.id.setText(result.getString("movieId"));
                 Call<MovieDetail> call = TheMDBService.TheMDBApi.getInstance().getMovieDetail(result.getString("movieId"), getString(R.string.api_key));
                 call.enqueue(new Callback<MovieDetail>() {
                     @Override
                     public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             MovieDetail movieDetail = response.body();
+                            setBackground(movieDetail.getBackdropPath());
+                            setPoster(movieDetail.getPosterPath());
                             binding.title.setText(movieDetail.getTitle());
                             binding.tagline.setText(movieDetail.getTagline());
                             binding.voteAverage.setText(movieDetail.getVoteAverage());
@@ -58,6 +61,34 @@ public class MovieDetailFragment extends Fragment {
                         System.out.println("!!!!FALLO LA CONEXION CON LA API!!!");
                     }
                 });
+            }
+        });
+    }
+
+    private void setBackground(String posterPath) {
+        Picasso.get().load("https://image.tmdb.org/t/p/original" + posterPath).into(this.binding.background, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                binding.background.setBackground(null);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void setPoster(String posterPath) {
+        Picasso.get().load("https://image.tmdb.org/t/p/original" + posterPath).into(this.binding.poster, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                binding.poster.setBackground(null);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
             }
         });
     }

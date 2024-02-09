@@ -1,48 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="detail"
             type="sas.movie_rank.MovieDetailFragment" />
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".MovieDetailFragment">
 
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="400dp"
+            android:layout_height="225dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            style="?attr/materialCardViewElevatedStyle"
+            android:id="@+id/poster_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="140dp"
+            app:layout_constraintStart_toStartOf="@+id/background"
+            app:layout_constraintTop_toTopOf="@+id/background">
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="130dp"
+                android:layout_height="195dp" />
+
+        </androidx.cardview.widget.CardView>
+
+
         <TextView
             android:id="@+id/id"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Movie Detail"
+            android:text="Rating"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            app:layout_constraintStart_toStartOf="@+id/vote_average"
+            app:layout_constraintTop_toBottomOf="@+id/vote_average" />
+
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Movie Detail"
+            android:layout_marginStart="16dp"
+            android:text="Movie Title"
+            android:textColor="@color/white"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/poster_frame"
+            app:layout_constraintTop_toTopOf="@+id/poster_frame" />
+
         <TextView
             android:id="@+id/tagline"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Movie Detail"
+            android:maxLines="2"
+            android:text="Tag line"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
         <TextView
             android:id="@+id/vote_average"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Movie Detail"
+            android:text="100"
+            android:textSize="36sp"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintStart_toStartOf="@+id/tagline"
+            app:layout_constraintTop_toBottomOf="@+id/background" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
