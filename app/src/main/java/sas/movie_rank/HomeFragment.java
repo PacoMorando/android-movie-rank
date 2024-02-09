@@ -27,7 +27,6 @@ public class HomeFragment extends Fragment {
         this.trendingRecyclerAdapter = new TrendingRecyclerAdapter();
         this.trendingRecyclerAdapter.setItemClickListener(itemId -> {
             this.showMovieDetail(itemId);
-            Toast.makeText(getContext(), "Picaste el id" + itemId, Toast.LENGTH_SHORT).show();
         });
     }
 

@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentResultListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +36,7 @@ public class MovieDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.binding = FragmentMovieDetailBinding.inflate(inflater, container, false);
         this.setMovieDetails();
+        this.binding.setDetail(this);
         return this.binding.getRoot();
     }
 
@@ -91,5 +93,14 @@ public class MovieDetailFragment extends Fragment {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void backToHome() {
+        System.out.println("BACK BUTTON PRESSED");
+        Toast.makeText(getContext(), "BACK BUTTON", Toast.LENGTH_SHORT).show();
+        this.getParentFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.home_container, HomeFragment.class, null)
+                .commit();
     }
 }
